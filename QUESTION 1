@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Check if no argument or more than one argument is provided
+if [ "$#" -ne 1 ]; then
+    echo "Please provide exactly one positive integer as a command line argument."
+    exit 1
+fi
+
+# Check if the argument is a number
+if ! [[ "$1" =~ ^[0-9]+$ ]]; then
+    echo "The argument is not a positive integer."
+    exit 1
+fi
+
+# Function to check if a number is prime
+is_prime() {
+    num=$1
+    if [ "$num" -le 1 ]; then
+        echo "$num is not a prime number."
+        return
+    fi
+    for (( i = 2; i*i <= num; i++ )); do
+        if [ $((num % i)) -eq 0 ]; then
+            echo "$num is not a prime number."
+            return
+        fi
+    done
+    echo "$num is a prime number."
+}
+
+# Function to calculate sum and product of digits
+sum_product_digits() {
+    num=$1
+    sum=0
+    product=1
+    while [ "$num" -gt 0 ]; do
+        digit=$((num % 10))
+        sum=$((sum + digit))
+        product=$((product * digit))
+        num=$((num / 10))
+    done
+    echo "Sum of digits: $sum"
+    echo "Product of digits: $product"
+}
+
+# Function to check if a number is palindrome
+is_palindrome() {
+    num=$1
+    reverse=0
+    original=$num
+    while [ "$num" -gt 0 ]; do
+        digit=$((num % 10))
+        reverse=$((reverse * 10 + digit))
+        num=$((num / 10))
+    done
+    if [ "$original" -eq "$reverse" ]; then
+        echo "$original is a palindrome."
+    else
+        echo "$original is not a palindrome."
+    fi
+}
+
+# Main logic based on user's choice
+echo "Choose an action to perform:"
+echo "1. Display the sum and the product of the digits of the number"
+echo "2. Display whether the number is a palindrome or not"
+echo "3. Display whether the number is prime or not"
+read -r choice
+
+case $choice in
+    1) sum_product_digits "$1";;
+    2) is_palindrome "$1";;
+    3) is_prime "$1";;
+    *) echo "Invalid choice.";;
+esac
