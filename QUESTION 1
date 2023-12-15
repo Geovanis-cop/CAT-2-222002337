@@ -11,23 +11,7 @@ if ! [[ "$1" =~ ^[0-9]+$ ]]; then
     echo "The argument is not a positive integer."
     exit 1
 fi
-
-# Function to check if a number is prime
-is_prime() {
-    num=$1
-    if [ "$num" -le 1 ]; then
-        echo "$num is not a prime number."
-        return
-    fi
-    for (( i = 2; i*i <= num; i++ )); do
-        if [ $((num % i)) -eq 0 ]; then
-            echo "$num is not a prime number."
-            return
-        fi
-    done
-    echo "$num is a prime number."
-}
-
+1.
 # Function to calculate sum and product of digits
 sum_product_digits() {
     num=$1
@@ -43,6 +27,7 @@ sum_product_digits() {
     echo "Product of digits: $product"
 }
 
+2.
 # Function to check if a number is palindrome
 is_palindrome() {
     num=$1
@@ -58,6 +43,22 @@ is_palindrome() {
     else
         echo "$original is not a palindrome."
     fi
+}
+3.
+# Function to check if a number is prime
+is_prime() {
+    num=$1
+    if [ "$num" -le 1 ]; then
+        echo "$num is not a prime number."
+        return
+    fi
+    for (( i = 2; i*i <= num; i++ )); do
+        if [ $((num % i)) -eq 0 ]; then
+            echo "$num is not a prime number."
+            return
+        fi
+    done
+    echo "$num is a prime number."
 }
 
 # Main logic based on user's choice
